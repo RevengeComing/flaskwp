@@ -36,10 +36,10 @@ def generate_post_class(db):
     +-----------------------+---------------------+------+-----+---------------------+----------------+
     """
     class WPPost(db.Model):
-        __tablename__ = "wp_posts"
         __bind_key__ = "wordpress"
-        ID = db.Column(db.Integer, primary_key=True)
-        post_author = db.Column(db.Integer)
+        __tablename__ = "wp_posts"
+        ID = db.Column(db.BigInteger, primary_key=True)
+        post_author = db.Column(db.BigInteger)
         post_date = db.Column(db.DateTime)
         post_date_gmt = db.Column(db.DateTime)
         post_content = db.Column(db.Text)
@@ -55,12 +55,12 @@ def generate_post_class(db):
         post_modified = db.Column(db.DateTime)
         post_modified_gmt = db.Column(db.DateTime)
         post_content_filtered = db.Column(db.Text)
-        post_parent = db.Column(db.Integer)
+        post_parent = db.Column(db.BigInteger)
         guid = db.Column(db.String(255))
         menu_order = db.Column(db.Integer)
         post_type = db.Column(db.String(20))
         post_mime_type = db.Column(db.String(100))
-        comment_count = db.Column(db.Integer)
+        comment_count = db.Column(db.BigInteger)
 
     return WPPost
 
@@ -83,7 +83,18 @@ def generate_user_class(db):
     +---------------------+---------------------+------+-----+---------------------+----------------+
     """
     class WPUser(db.Model):
-        __tablename__ = ""
+        __bind_key__ = "wordpress"
+        __tablename__ = "wp_users"
+        ID = db.Column(db.BigInteger, primary_key=True)
+        user_login = db.Column(db.String(60))
+        user_pass = db.Column(db.String(255))
+        user_nicename = db.Column(db.String(50))
+        user_email = db.Column(db.String(100))
+        user_url = db.Column(db.String(100))
+        user_registered = db.Column(db.DateTime)
+        user_activation_key = db.Column(db.String(255))
+        user_status = db.Column(db.Integer)
+        display_name = db.Column(db.String(250))
 
     return WPUser
 
@@ -111,6 +122,22 @@ def generate_comment_class(db):
     +----------------------+---------------------+------+-----+---------------------+----------------+
     """
     class WPComment(db):
-        pass
+        __bind_key__ = "wordpress"
+        __tablename__ = "wp_comments"
+        comment_ID = db.Column(db.BigInteger, primary_key=True)
+        comment_post_ID = db.Column(db.BigInteger)
+        comment_author = db.Column(db.Text)
+        comment_author_email = db.Column(db.String(100))
+        comment_author_url = db.Column(db.String(200))
+        comment_author_IP = db.Column(db.String(100))
+        comment_date = db.Column(db.DateTime)
+        comment_date_gmt = db.Column(db.DateTime)
+        comment_content = db.Column(db.Text)
+        comment_karma = db.Column(db.Integer)
+        comment_approved = db.Column(db.String(20))
+        comment_agent = db.Column(db.String(255))
+        comment_type = db.Column(db.String(20))
+        comment_parent = db.Column(db.BigInteger)
+        user_id = db.Column(db.BigInteger)
 
     return WPComment

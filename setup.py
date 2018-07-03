@@ -9,7 +9,7 @@ from setuptools import setup
 
 
 setup(
-    name='flask_wp',
+    name='Flask-WP',
     version='1.0',
     url='https://github.com/RevengeComing/flaskwp',
     license='BSD',
@@ -17,7 +17,7 @@ setup(
     author_email='s.hamzelooy@gmail.com',
     description='A Backend for wordpress database',
     long_description=__doc__,
-    py_modules=['flask_wp'],
+    packages=['flask_wp'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',

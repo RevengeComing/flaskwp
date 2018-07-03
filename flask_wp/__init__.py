@@ -10,10 +10,10 @@ class FlaskWP(object):
         self.app = app
         self.db = flask_sqlalchemy
         self.init_tables()
-        self.init_jinja_env()
 
         if app is not None:
             self.init_app(app)
+            self.init_jinja_env()
 
     def init_app(self, app):
         app.jinja_env.filters.update(generate_template_tags(self))

@@ -23,6 +23,7 @@ class FlaskWP(object):
         self.User = generate_user_class(self.db)
         self.Post = generate_post_class(self.db)
         self.Comment = generate_comment_class(self.db)
+        self.Term = generate_terms_class(self.db)
 
     def init_jinja_env(self):
         self.app.jinja_env.filters.update(generate_template_tags(self))

@@ -2,11 +2,12 @@ __all__ = (
     "generate_post_class",
     "generate_comment_class",
     "generate_user_class",
+    "generate_terms_class",
 )
 
-def generate_post_class(db):
+def generate_post_class(db, prefix="wp_"):
     """
-    table : wp_posts;
+    table : prefiex + posts;
     +-----------------------+---------------------+------+-----+---------------------+----------------+
     | Field                 | Type                | Null | Key | Default             | Extra          |
     +-----------------------+---------------------+------+-----+---------------------+----------------+
@@ -37,7 +38,7 @@ def generate_post_class(db):
     """
     class WPPost(db.Model):
         __bind_key__ = "wordpress"
-        __tablename__ = "wp_posts"
+        __tablename__ = prefix + "posts"
         ID = db.Column(db.BigInteger, primary_key=True)
         post_author = db.Column(db.BigInteger)
         post_date = db.Column(db.DateTime)
@@ -64,9 +65,9 @@ def generate_post_class(db):
 
     return WPPost
 
-def generate_user_class(db):
+def generate_user_class(db, prefix="wp_"):
     """
-    table : wp_users;
+    table : prefiex + users;
     +---------------------+---------------------+------+-----+---------------------+----------------+
     | Field               | Type                | Null | Key | Default             | Extra          |
     +---------------------+---------------------+------+-----+---------------------+----------------+
@@ -84,7 +85,7 @@ def generate_user_class(db):
     """
     class WPUser(db.Model):
         __bind_key__ = "wordpress"
-        __tablename__ = "wp_users"
+        __tablename__ = prefix + "users"
         ID = db.Column(db.BigInteger, primary_key=True)
         user_login = db.Column(db.String(60))
         user_pass = db.Column(db.String(255))
@@ -98,9 +99,9 @@ def generate_user_class(db):
 
     return WPUser
 
-def generate_comment_class(db):
+def generate_comment_class(db, prefix="wp_"):
     """
-    table : wp_comments;
+    table : prefiex + comments;
     +----------------------+---------------------+------+-----+---------------------+----------------+
     | Field                | Type                | Null | Key | Default             | Extra          |
     +----------------------+---------------------+------+-----+---------------------+----------------+
@@ -123,7 +124,7 @@ def generate_comment_class(db):
     """
     class WPComment(db.Model):
         __bind_key__ = "wordpress"
-        __tablename__ = "wp_comments"
+        __tablename__ = prefix + "comments"
         comment_ID = db.Column(db.BigInteger, primary_key=True)
         comment_post_ID = db.Column(db.BigInteger)
         comment_author = db.Column(db.Text)
@@ -141,3 +142,25 @@ def generate_comment_class(db):
         user_id = db.Column(db.BigInteger)
 
     return WPComment
+
+def generate_terms_class(db, prefix="wp_"):
+    """
+    table: prefiex + terms
+    +------------+---------------------+------+-----+---------+----------------+
+    | Field      | Type                | Null | Key | Default | Extra          |
+    +------------+---------------------+------+-----+---------+----------------+
+    | term_id    | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+    | name       | varchar(200)        | NO   | MUL |         |                |
+    | slug       | varchar(200)        | NO   | MUL |         |                |
+    | term_group | bigint(10)          | NO   |     | 0       |                |
+    +------------+---------------------+------+-----+---------+----------------+
+    """
+    class WPTerm(db.Model):
+        __bind_key__ = "wordpress"
+        __tablename__ = prefix + "terms"
+        term_id = db.Column(db.BigInteger, primary_key=True)
+        name = db.Column(db.String(200))
+        slug = db.Column(db.String(200))
+        term_group = db.Column(db.BigInteger)
+    
+    return WPTerm

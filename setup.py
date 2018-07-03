@@ -9,7 +9,7 @@ from setuptools import setup
 
 
 setup(
-    name='Flask-WP',
+    name='flask_wp',
     version='1.0',
     url='https://github.com/RevengeComing/flaskwp',
     license='BSD',

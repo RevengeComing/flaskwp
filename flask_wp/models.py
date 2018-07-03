@@ -121,7 +121,7 @@ def generate_comment_class(db):
     | user_id              | bigint(20) unsigned | NO   |     | 0                   |                |
     +----------------------+---------------------+------+-----+---------------------+----------------+
     """
-    class WPComment(db):
+    class WPComment(db.Model):
         __bind_key__ = "wordpress"
         __tablename__ = "wp_comments"
         comment_ID = db.Column(db.BigInteger, primary_key=True)

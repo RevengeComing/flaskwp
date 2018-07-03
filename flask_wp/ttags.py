@@ -5,10 +5,9 @@ def generate_template_tags(fwp):
         return fwp.Post.query.fitler_by(
             post_type="post",post_status="publish"
         ).order_by(fwp.Post.post_date.desc()).limit(count)
-    flask_wp_filters['get_lates_posts'] = get_lates_posts
+    flask_wp_filters['get_lates_posts'] = get_latest_posts
 
     def get_featured_posts(count=10):
-        
-
+        pass
 
     return flask_wp_filters

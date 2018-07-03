@@ -1,7 +1,7 @@
 from flask import current_app
 
 from .models import *
-from .ttags import flask_wp_filters
+from .ttags import generate_template_tags
 
 
 class FlaskWP(object):
@@ -16,7 +16,7 @@ class FlaskWP(object):
             self.init_app(app)
 
     def init_app(self, app):
-        app.jinja_env.filters.update(flask_wp_filters)
+        app.jinja_env.filters.update(generate_template_tags(self))
         # current_app.config['SQLALCHEMY_BINDS']['wordpress']
 
     def init_tables(self):

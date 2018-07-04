@@ -5,6 +5,20 @@ __all__ = (
     "generate_terms_class",
 )
 
+from flask_sqlalchemy import BaseQuery
+
+
+class PostQueryset(BaseQuery):
+    def get_posts(self):
+        self.filter_by(post_type="post")
+
+    def get_pages(self):
+        self.filter_by(post_type="page")
+
+    def get_published(self):
+        self.filter_by(post_status="publish")
+
+
 def generate_post_class(db, prefix="wp_"):
     """
     table : prefiex + posts;
@@ -39,6 +53,7 @@ def generate_post_class(db, prefix="wp_"):
     class WPPost(db.Model):
         __bind_key__ = "wordpress"
         __tablename__ = prefix + "posts"
+        query_class = PostQueryset
         ID = db.Column(db.BigInteger, primary_key=True)
         post_author = db.Column(db.BigInteger)
         post_date = db.Column(db.DateTime)

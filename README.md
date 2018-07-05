@@ -32,13 +32,13 @@ if __name__ == "__main__":
 create a models.py file 
 ```python
 __all__ = (
-	"Post"
+	"User"
 )
 
 # add a method to WPUser class
-def get_email(self):
-    return self.user_email
-    
+def get_email(user):
+    return user.user_email
 fwp.User.get_email = get_email
-Post = fwp.User
+
+User = fwp.User
 ```
